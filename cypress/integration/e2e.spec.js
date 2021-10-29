@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+const perfil = require('../fixtures/perfil.json')
 
 context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     /*  Como cliente 
@@ -23,9 +24,7 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         cy.get(':nth-child(2) > .value > .variable-items-wrapper > .variable-item').click()
         cy.get('.input-text').clear().type(4)
         cy.get('.single_add_to_cart_button').click()  
-
         
-
         cy.get('[class="product-block grid"]')
         .contains('Arcadio Gym Short').click()
         cy.get('.button-variable-item-36').click()
@@ -54,24 +53,33 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         cy.get('.dropdown-toggle > .text-skin > .icon-basket').click()
         cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .checkout').click()
         cy.get('.showlogin').click()
-        cy.get('#username').type("aluno_ebac@teste.com")
-        cy.get('#password').type("teste@teste.com")
+        cy.get('#username').type(perfil.usuario, {log: false})
+        cy.get('#password').type(perfil.senha, {log: false})
         cy.get('.woocommerce-button').click()
 
         cy.get('#billing_first_name').clear().type("Damião")
         cy.get('#billing_last_name').clear().type("Filipe")
         cy.get('#billing_company').clear().type("Dami Hair")
         cy.get('#select2-billing_country-container').click()
-        cy.get('.select2-search__field').type("Brasil").click()
+        cy.get('.select2-search__field').click().type("Brasil").get('[aria-selected="true"]').click()
 
         cy.get('#billing_address_1').clear().type("avenida iraque")
         cy.get('#billing_address_2').clear().type("309")
         cy.get('#billing_city').clear().type("Uberlândia")
         cy.get('#select2-billing_state-container').click()
-        cy.get('.select2-search__field').type("Minas Gerais").click()
+        cy.get('.select2-search__field').click().type("Minas Gerais").get('[aria-selected="true"]').click()
+        cy.get('#billing_postcode').clear().type("38410-282")
+        cy.get('#billing_phone').clear().type("34992332810")
+        cy.get('#billing_email').clear().type("damiaofilipe@hotmail.com")
+        cy.get('#order_comments').type("Por gentileza não mandar produtos errôneos. Gratidão!")
+
+        cy.get('#terms').click()
+        cy.get('#place_order').click()
+
+        cy.get('.woocommerce-notice')
 
 
-
+        cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
     });
 
    
