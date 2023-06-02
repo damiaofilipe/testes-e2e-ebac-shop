@@ -2,8 +2,8 @@
 
 const perfil = require('../fixtures/perfil.json')
 import addprodutoPage from '../support/page_objects/addproduto.page.js';
-import loginPage from '../support/page_objects/login.page';
-import enderecoPage from '../support/page_objects/endereco.page.js';
+import loginPage from '../support/page_objects/login.page.js';
+import enderecoPage from '../support/page_objects/endereco.page.js.js';
 
 context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
   
@@ -11,7 +11,7 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         cy.visit('produtos/')
     });
 
-    it('Deve add produtos,fazer login, editar dados e finalizar pedido - fluxo do pedido', () => {
+    it.only('Deve add produtos,fazer login, editar dados e finalizar pedido - fluxo do pedido', () => {
 
         addprodutoPage.AddProdutos()
 
